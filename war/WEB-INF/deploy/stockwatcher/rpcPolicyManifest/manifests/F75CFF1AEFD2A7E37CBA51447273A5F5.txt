@@ -1,2 +1,0 @@
-serviceClass: ssk.project.StockWatcher.client.GreetingService
-path: 98219BDFE1AADEA336F6901713F4883A.gwt.rpc

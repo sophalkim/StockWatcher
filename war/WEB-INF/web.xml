@@ -7,12 +7,18 @@
 
   <!-- Servlets -->
   <servlet>
-  	<servlet-name>stockPriceServiceImpl</servlet-name>
-  	<servlet-class>ssk.project.StockWatcher.server.StockPriceServiceImpl</servlet-class>
+<!--   	<servlet-name>stockPriceServiceImpl</servlet-name> -->
+<!--   	<servlet-class>ssk.project.StockWatcher.server.StockPriceServiceImpl</servlet-class> -->
+  	
+  	<servlet-name>jsonStockData</servlet-name>
+  	<servlet-class>ssk.project.StockWatcher.server.JsonStockData</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>stockPriceServiceImpl</servlet-name>
+<!--     <servlet-name>stockPriceServiceImpl</servlet-name> -->
+<!--     <url-pattern>/stockwatcher/stockPrices</url-pattern> -->
+    
+    <servlet-name>jsonStockData</servlet-name>
     <url-pattern>/stockwatcher/stockPrices</url-pattern>
   </servlet-mapping>
   
