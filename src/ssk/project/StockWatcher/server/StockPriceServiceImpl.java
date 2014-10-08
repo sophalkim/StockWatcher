@@ -5,8 +5,11 @@ import java.util.Random;
 import ssk.project.StockWatcher.client.StockPrice;
 import ssk.project.StockWatcher.client.StockPriceService;
 
-public class StockPriceServiceImpl implements StockPriceService {
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+public class StockPriceServiceImpl extends RemoteServiceServlet implements StockPriceService {
+
+	private static final long serialVersionUID = 1L;
 	private static final double MAX_PRICE = 100.0; // $100.00
 	private static final double MAX_PRICE_CHANGE = 0.02; // +/- 2%
 	

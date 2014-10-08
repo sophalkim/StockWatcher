@@ -1,7 +1,11 @@
 package ssk.project.StockWatcher.client;
 
-public class StockPrice {
+import java.io.Serializable;
 
+public class StockPrice implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	private String symbol;
 	private double price;
 	private double change;
