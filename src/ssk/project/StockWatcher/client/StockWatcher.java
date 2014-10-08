@@ -9,6 +9,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.user.client.Random;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -22,6 +24,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class StockWatcher implements EntryPoint {
+	
+	private static final int REFRESH_INTERVAL = 5000; //ms
 	
 	private VerticalPanel mainPanel = new VerticalPanel();
 	private FlexTable stocksFlexTable = new FlexTable();
@@ -72,6 +76,15 @@ public class StockWatcher implements EntryPoint {
 		RootPanel.get("stockList").add(mainPanel);
 		
 		newSymbolTextBox.setFocus(true);
+		
+		// Setup timer to refresh list automatically.
+		Timer refreshTimer = new Timer() {
+			@Override
+			public void run() {
+				refreshWatchList();
+			}
+		};
+		refreshTimer.scheduleRepeating(REFRESH_INTERVAL);
 		
 		// Listen for mouse events on the Add button.
 		addStockButton.addClickHandler(new ClickHandler() {
@@ -130,6 +143,26 @@ public class StockWatcher implements EntryPoint {
 			}
 		});
 		stocksFlexTable.setWidget(row, 3, removeStockButton);
+		
+		//Get the stock prices.
+		refreshWatchList();
+	}
+	
+	/**
+	 * Generate random stock prices.
+	 */
+	private void refreshWatchList() {
+		final double MAX_PRICE = 100.0; // $100.00
+		final double MAX_PRICE_CHANGE = 0.02; // +/- 2%
+		
+		StockPrice[] prices = new StockPrice[stocks.size()];
+		for (int i = 0; i < stocks.size(); i++) {
+			double price = Random.nextDouble() * MAX_PRICE;
+			double change = Random.nextDouble() * MAX_PRICE_CHANGE
+					* (Random.nextDouble() * 2.0 - 1.0);
+			prices[i] = new StockPrice(stocks.get(i), price, change);
+		}
+		updateTable(prices);
 	}
 	
 	
